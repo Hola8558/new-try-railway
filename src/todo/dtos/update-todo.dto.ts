@@ -13,3 +13,12 @@ export class UpdateTodoDto{
     @IsOptional()
     status?: TodoStatus;
 }
+
+export class UserDto{
+    @IsNotEmpty()
+    @IsString()
+    email: string;
+    @IsNotEmpty()
+    @IsString()
+    pass: string;
+}

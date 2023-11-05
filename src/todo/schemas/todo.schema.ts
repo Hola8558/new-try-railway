@@ -17,3 +17,13 @@ export class Todo {
 }
 
 export const  TodoSchema = SchemaFactory.createForClass(Todo);
+
+@Schema()
+export class User {
+    @Prop({required : true})
+    email: string;
+    @Prop({required : true})
+    pass: string;
+}
+
+export const  UserSchema  = SchemaFactory.createForClass(User);

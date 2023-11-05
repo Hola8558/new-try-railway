@@ -1,13 +1,15 @@
-import { Controller, Post, Delete, Get, Put, Body, ValidationPipe, Param } from '@nestjs/common';
+import { Controller, Post, Delete, Get, Put, Body, ValidationPipe, Param, UseGuards } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateDTO } from './dtos/create-todo.dto';
-import { UpdateTodoDto } from './dtos/update-todo.dto';
+import { UpdateTodoDto, UserDto } from './dtos/update-todo.dto';
 
 @Controller('todo')
 export class TodoController {
 
     constructor(private todoService: TodoService){}
 
+
+    //TASKS
     @Post()
     async create(@Body(new ValidationPipe) createdTodo: CreateDTO){
         return this.todoService.create(createdTodo);
@@ -23,6 +25,11 @@ export class TodoController {
         return this.todoService.findAll();
     }
 
+    @Get()
+    async findAll2(){
+        return this.todoService.findAll();
+    }
+
     @Get(':id')
     async findOne (@Param('id') id: string){
         return this.todoService.findOne(id);
@@ -33,4 +40,14 @@ export class TodoController {
         return this.todoService.delete(id);
     }
 
+    //USERS
+    @Post('/newUser')
+    async createUser(@Body(new ValidationPipe) createdUser: UserDto){
+        return this.todoService.createUser(createdUser);
+    }
+
+    @Post('/login')
+    async loginUser(@Body(new ValidationPipe) createdUser: UserDto){
+        return this.todoService.loginUser(createdUser);
+    }
 }
